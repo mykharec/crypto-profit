@@ -1,7 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+# Dev
+ * Get litecoin price by timestamp: https://min-api.cryptocompare.com/data/pricehistorical?fsym=LTC&tsyms=USD&ts=1537856365
+ ```
+ {"LTC":{"USD":57.29}}
+ ```
+ * Get spent transactions https://chain.so/api#get-spent-tx
+ * Get received transactions https://chain.so/api#get-received-tx
 
 ## Table of Contents
 
