@@ -1,19 +1,27 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import * as React from 'react';
+import {Switch, Route} from "react-router-dom";
+
 import './App.css';
 
-import logo from './logo.svg';
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+library.add(faStroopwafel, faTrash)
+
+import Login from './components/login/Login'
+import Profit from './components/profit/Profit'
+
 
 class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+         <Switch>
+           <Route exact path="/" component={Login}/>
+           <Route exact path="/profit" component={Profit}/>
+         </Switch>
       </div>
     );
   }

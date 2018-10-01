@@ -1,0 +1,16 @@
+.Profit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20rem;
+    font-weight: bold;
+
+}
+
+.Success {
+    color: #009944;
+}
+
+.Lesion {
+    color: darkred;
+}
