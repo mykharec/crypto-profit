@@ -1,42 +1,43 @@
 import * as React from 'react';
-import {Redirect} from "react-router-dom";
+import {connect} from 'react-redux';
 import {Button} from "reactstrap";
+import {ReactNode} from "react";
 
-import './Profit.css'
+import './Profit.css';
+import {IStore} from "../../interfaces/store";
 
-class Profit extends React.Component {
-    public state = {
-        amount : -10,
-        redirect: false
+class Profit extends React.Component<any> {
+    public back = (): void => {
+        this.props.history.push('/');
     };
 
-    public ckeckOtherAddressHandler = () => {
-        this.setState({
-            redirect: true
-        })
-    }
-
-    public render() {
-        if (this.state.redirect) {
-            return <Redirect push to="/" />;
-        }
+    public render(): ReactNode {
+        const { profitPage } = this.props;
 
         return (
             <section>
                 <div className="Profit">
-                    <span className={this.state.amount > 0 ? 'Success' : 'Lesion'}> {this.state.amount > 0 ? '+' : ''}</span>
-                    <span className={this.state.amount > 0 ? 'Success' : 'Lesion'}> {this.state.amount}$</span>
+                    <span className={profitPage.amount > 0 ? 'Success' : 'Lesion'}>
+                        {profitPage.amount > 0 ? '+' : ''}
+                    </span>
+                    <span className={profitPage.amount > 0 ? 'Success' : 'Lesion'}>
+                        {profitPage.amount}$
+                    </span>
                 </div>
 
-                <Button color="success"
-                        size="large"
-                        id="pathphrase"
-                        style={{ marginBottom: '1rem' }} onClick={this.ckeckOtherAddressHandler}>
-                    Check ouher address
+                <Button type="submit"
+                        color="success"
+                        style={{display: 'block', height: '100%'}}
+                        onClick={this.back}>
+                    Check another address
                 </Button>
             </section>
         )
     }
 }
 
-export default Profit;
+const mapPropsToState = (store: IStore) => ({
+    profitPage: store.page
+});
+
+export default connect(mapPropsToState)(Profit);

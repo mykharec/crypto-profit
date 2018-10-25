@@ -1,15 +1,13 @@
 import * as React from 'react';
 import {Button, Col, FormGroup, Input, Row, Container} from "reactstrap";
-// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {ReactNode} from "react";
 
-export default class Address extends React.Component {
-
-    public changeAddress = () => {
+export default class Address extends React.Component<any> {
+    public changeAddress = (): void => {
         console.log('change')
     };
 
-
-    public render() {
+    public render(): ReactNode {
         return (
             <Container>
                 <Row>
@@ -24,9 +22,8 @@ export default class Address extends React.Component {
                     <Col md="2">
                         <Button type="button"
                                 color="danger"
-                            // @ts-ignore
-                                onClick={this.props.delete}>
-                            {/*<FontAwesomeIcon icon="trash" />*/}
+                                onClick={this.props.delete}
+                                disabled={this.props.disableButton}>
                             Remove
                         </Button>
                     </Col>

@@ -1,46 +1,34 @@
 import { Formik } from 'formik';
 import * as React from 'react';
+import {ReactNode} from "react";
+import {connect} from 'react-redux';
 import {Col, Container, Row, Button, Alert, Collapse, CardBody, Card} from 'reactstrap';
-import {Redirect} from "react-router-dom";
-// import * as Yup from 'yup';
-
-import PathPhrase from '../pathphrase-login/PathPhraseLogin';
-import Addresses from '../address-login/AddressLogin';
 
 import './Login.css';
+import PathPhrase from '../pathphrase-login/PathPhraseLogin';
+import Addresses from '../addresses/Addresses';
+import {IProps} from "../../interfaces/props";
+import {IStore} from "../../interfaces/store";
+import calculate from "../../actions/calculate";
 
-class Login extends React.Component {
-    public state = {
-        collapse: false,
-        redirect: false
+class Login extends React.Component<IProps> {
+    public calculateIfValid = (): void => {
+        this.props.calculate();
+        this.props.history.push('/profit');
     };
 
-    public handleCalculation =() => {
-        this.setState({
-            redirect: true
-        })
-}
-
-    public render() {
-        if (this.state.redirect) {
-            return <Redirect push to="/profit" />;
-        }
+    public render(): ReactNode {
         return (
             <Formik initialValues={{ pathphrase: ''}}
-                        onSubmit={(values: any, actions: any) => {
-                            console.log(values)
-                        }}
-                >
-                    {props => {
-                        // const {
-                        //     handleSubmit,
-                        // } = props;
-
+                    onSubmit={(values: any, actions: any) => {
+                        console.log(values)
+                    }}>
+                    {() => {
                         return (
                             <Container>
                                 <Row className="Header">
                                     <Col md="12">
-                                        <h1>Calculate your profite</h1>
+                                        <h1>Calculate your profit</h1>
                                     </Col>
                                     <Col>
                                         <Alert color="success">
@@ -56,7 +44,7 @@ class Login extends React.Component {
                                                 style={{ marginBottom: '1rem' }}>
                                             Path Phrase
                                         </Button>
-                                        <Collapse toggler="#pathphrase" isOpen={this.state.collapse = true}>
+                                        <Collapse toggler="#pathphrase" isOpen={true}>
                                             <Card>
                                                 <CardBody>
                                                     <Row md="12" className="Pathphrase">
@@ -74,7 +62,7 @@ class Login extends React.Component {
                                                 style={{ marginBottom: '1rem' }}>
                                             Address
                                         </Button>
-                                        <Collapse toggler="#address" isOpen={this.state.collapse}>
+                                        <Collapse toggler="#address" isOpen={true}>
                                             <Card>
                                                 <CardBody>
                                                     <Row md="12" className="Addresses">
@@ -85,7 +73,6 @@ class Login extends React.Component {
                                                 </CardBody>
                                             </Card>
                                         </Collapse>
-
                                     </Col>
                                 </Row>
 
@@ -93,7 +80,7 @@ class Login extends React.Component {
                                     <Button type="submit"
                                             color="success"
                                             disabled={false}
-                                            onClick={this.handleCalculation}>
+                                            onClick={this.calculateIfValid}>
                                         Calculate
                                     </Button>
                                 </Row>
@@ -105,6 +92,17 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+const mapStateToProps = (store: IStore) => ({
+    addressPage: store.page
+});
+
+const dispatchStateToProps = (dispatch: any) => ({
+        calculate: (): void  => {
+            dispatch(calculate())
+        }
+});
+
+export default connect(mapStateToProps, dispatchStateToProps)(Login);
+
 
 

@@ -1,77 +1,64 @@
 import * as React from 'react';
-import Address from "../address/Address";
+import {ReactNode} from "react";
 import {Alert, Button, Col, Container, Row} from 'reactstrap';
+import {connect} from "react-redux";
 
-class Addresses extends React.Component {
-    public state = {
-        addresses: [
-            {id: new Date().getTime(), value: ''}
-        ]
-    };
+import Address from "../address/Address";
+import {IStore} from "../../interfaces/store";
+import addAddress from "../../actions/addAddress";
+import removeAddress from "../../actions/removeAddress";
+import {IAddress} from "../../interfaces/address";
 
-    public addAddressHandler = () => {
-        const addresses = [...this.state.addresses];
-        addresses.push({id: new Date().getTime(), value: ''});
-        this.setState({
-            addresses
-        });
-        console.log(this.state.addresses)
-    };
+class Addresses extends React.Component<any> {
+    public render(): ReactNode {
+        const {addresses} = this.props;
 
-    public removeAddressHandler = (addressId: number) => {
-        console.log('addressId', addressId)
-        const addresses = [...this.state.addresses];
-
-        if(addresses.length > 1) {
-            addresses.splice(addressId, 1);
-        }
-        this.setState({
-            addresses
-        })
-    };
-
-    public testAddress = (index: number) => {
-        console.log(`Address with index ${index} is correct`)
-    };
-
-    public render() {
         return (
             <Container>
                 <Row>
                     <Col>
                         <Alert color="success">
-                            You can use your address for calculation
+                            You can use your <b>address</b>  for calculation
                         </Alert>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        {this.state.addresses.map((address: any, index: number) => {
+                        {
+                            addresses.map((address: IAddress) => {
                             return (
                                 <Address key={address.id}
-                                    // @ts-ignore
-                                         delete={() => this.removeAddressHandler(index)}
-                                         test={() => this.testAddress(index)}/>
-                            )
-                        })
+                                         delete={() => this.props.removeAddress(address.id)}
+                                         disableButton={this.props.addresses.length === 1}/>
+                                )
+                            })
                         }
                     </Col>
                 </Row>
                 <Row>
                     <Button color="primary"
                             block
-                            onClick={this.addAddressHandler}>
+                            onClick={this.props.addAddress}>
                         Add Address
                     </Button>
                 </Row>
-
-
-
-
-
             </Container>
         )
     }
 }
 
-export default Addresses;
+
+const mapStateToProps = (store: IStore) => ({
+        addresses: store.addresses,
+});
+
+const dispatchStateToProps = (dispatch: any) => ({
+    addAddress: (): void => {
+        dispatch(addAddress())
+    },
+    removeAddress: (id: number): void => {
+        dispatch(removeAddress(id))
+    }
+});
+
+export default connect(mapStateToProps, dispatchStateToProps)(Addresses);

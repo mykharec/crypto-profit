@@ -1,8 +1,9 @@
 import * as React from 'react';
+import {ReactNode} from "react";
 import {Alert, Col, Container, Form, FormGroup, Input, Row} from "reactstrap";
 
 class PathPhrase extends React.Component {
-    public render() {
+    public render(): ReactNode {
         return (
             <section>
                 <Col>
