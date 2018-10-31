@@ -1,13 +1,18 @@
 import * as React from 'react';
 import {Button, Col, FormGroup, Input, Row, Container} from "reactstrap";
-import {ReactNode} from "react";
+import * as PropTypes from 'prop-types';
 
-export default class Address extends React.Component<any> {
+class Address extends React.Component<any> {
+    public static propTypes = {
+        delete: PropTypes.func.isRequired,
+        disableButton: PropTypes.bool.isRequired
+    };
+
     public changeAddress = (): void => {
         console.log('change')
     };
 
-    public render(): ReactNode {
+    public render(): React.ReactNode {
         return (
             <Container>
                 <Row>
@@ -32,4 +37,6 @@ export default class Address extends React.Component<any> {
         )
     }
 }
+
+export default Address;
 

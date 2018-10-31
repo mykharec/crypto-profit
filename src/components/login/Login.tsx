@@ -1,6 +1,5 @@
 import { Formik } from 'formik';
 import * as React from 'react';
-import {ReactNode} from "react";
 import {connect} from 'react-redux';
 import {Col, Container, Row, Button, Alert, Collapse, CardBody, Card} from 'reactstrap';
 
@@ -17,7 +16,7 @@ class Login extends React.Component<IProps> {
         this.props.history.push('/profit');
     };
 
-    public render(): ReactNode {
+    public render(): React.ReactNode {
         return (
             <Formik initialValues={{ pathphrase: ''}}
                     onSubmit={(values: any, actions: any) => {

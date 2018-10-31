@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {ReactNode} from "react";
 import {Alert, Button, Col, Container, Row} from 'reactstrap';
 import {connect} from "react-redux";
 
@@ -10,7 +9,7 @@ import removeAddress from "../../actions/removeAddress";
 import {IAddress} from "../../interfaces/address";
 
 class Addresses extends React.Component<any> {
-    public render(): ReactNode {
+    public render(): React.ReactNode {
         const {addresses} = this.props;
 
         return (

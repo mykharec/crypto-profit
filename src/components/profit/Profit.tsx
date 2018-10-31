@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {Button} from "reactstrap";
-import {ReactNode} from "react";
 
 import './Profit.css';
 import {IStore} from "../../interfaces/store";
@@ -11,7 +10,7 @@ class Profit extends React.Component<any> {
         this.props.history.push('/');
     };
 
-    public render(): ReactNode {
+    public render(): React.ReactNode {
         const { profitPage } = this.props;
 
         return (
